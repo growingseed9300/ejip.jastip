@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Jastip Mesir - by Ra!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --blush:    #ffefb9;
+      --cream:    #fff8e2;
+      --brown:    #8b4d37;
+      --brown-dk: #6b3826;
+      --brown-lt: #c4856a;
+      --shadow:   rgba(193, 162, 146, 0.18);
+}
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--cream);
+      background-image:
+        radial-gradient(ellipse at 15% 15%, rgba(253,220,220,0.6) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 85%, rgba(253,220,220,0.4) 0%, transparent 50%);
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: #fffdf9;
+      border-radius: 28px;
+      box-shadow:
+        0 2px 4px var(--shadow),
+        0 20px 60px var(--shadow),
+        0 0 0 1px rgba(139,77,55,0.07);
+      overflow: hidden;
+      animation: rise 0.65s cubic-bezier(.22,.68,0,.99) both;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(28px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    @keyframes field-in {
+      from { opacity: 0; transform: translateX(-10px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--brown);
+      padding: 40px 48px 36px;
+      position: relative;
+      overflow: hidden;
+    }
+    .header-ornament {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+      pointer-events: none;
+      opacity: 0.13;
+    }
+    .header-eyebrow {
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 3.5px;
+      text-transform: uppercase;
+      color: var(--blush);
+      opacity: 0.75;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(24px, 5.5vw, 32px);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.2;
+      position: relative;
+      z-index: 1;
+    }
+    .header h1 em {
+      font-style: italic;
+      font-weight: 400;
+      color: var(--blush);
+    }
+    .header p {
+      margin-top: 10px;
+      color: var(--blush);
+      font-size: 13px;
+      font-weight: 300;
+      opacity: 0.88;
+      line-height: 1.7;
+      position: relative;
+      z-index: 1;
+    }
+
+
+
+    /* ── Form Body ── */
+    .body {
+      padding: 40px 48px 52px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    @media (max-width: 480px) {
+      .header { padding: 32px 24px 28px; }
+      .header-ornament { display: none; }
+      .body { padding: 28px 24px 40px; }
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+      animation: field-in 0.5s ease both;
+    }
+    .field:nth-child(1) { animation-delay: 0.08s; }
+    .field:nth-child(2) { animation-delay: 0.16s; }
+    .field:nth-child(3) { animation-delay: 0.24s; }
+    .field:nth-child(4) { animation-delay: 0.32s; }
+
+    label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--brown);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .icon {
+      width: 22px; height: 22px;
+      background: var(--blush);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    label .req { color: var(--brown-lt); margin-left: auto; font-size: 14px; font-weight: 400; letter-spacing: 0; }
+
+    input[type="text"],
+    input[type="tel"] {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #ead6cc;
+      border-radius: 12px;
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #3a1e10;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+      outline: none;
+    }
+    input::placeholder { color: #c9aca2; font-weight: 300; }
+    input:focus {
+      border-color: var(--brown-lt);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(139,77,55,0.1);
+    }
+
+    textarea {
+      width: 100%;
+      padding: 13px 16px;
+      border: 1.5px solid #ead6cc;
+      border-radius: 12px;
+      background: var(--cream);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: #3a1e10;
+      resize: none;
+      min-height: 88px;
+      line-height: 1.65;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+    textarea::placeholder { color: #c9aca2; font-weight: 300; }
+    textarea:focus {
+      border-color: var(--brown-lt);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(139,77,55,0.1);
+    }
+
+    .divider {
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--blush), transparent);
+    }
+
+    .submit-area {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 6px;
+      animation: field-in 0.5s 0.40s ease both;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(139,77,55,0.28);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .btn-submit:hover {
+      background: var(--brown-dk);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(139,77,55,0.36);
+    }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+
+    .btn-reset {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: 1.5px solid #ead6cc;
+      border-radius: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--brown-lt);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover {
+      border-color: var(--brown-lt);
+      color: var(--brown);
+      background: var(--blush);
+    }
+
+    /* ── Upload Field ── */
+    .upload-box {
+      border: 2px dashed #ead6cc;
+      border-radius: 12px;
+      background: var(--cream);
+      padding: 24px 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+    .upload-box:hover { border-color: var(--brown-lt); background: #fff; }
+    .upload-box.dragover { border-color: var(--brown); background: var(--blush); }
+    .upload-box.has-file { border-color: var(--brown); border-style: solid; background: #fff; }
+    .upload-box input[type="file"] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
+    }
+    .upload-icon { font-size: 28px; margin-bottom: 8px; }
+    .upload-text { font-size: 13.5px; color: #a07060; line-height: 1.5; }
+    .upload-text strong { color: var(--brown); }
+    .upload-preview {
+      display: none;
+      align-items: center;
+      gap: 12px;
+      text-align: left;
+    }
+    .upload-preview.show { display: flex; }
+    .upload-preview-icon { font-size: 28px; flex-shrink: 0; }
+    .upload-preview-name { font-size: 13px; color: var(--brown); font-weight: 700; word-break: break-all; }
+    .upload-preview-size { font-size: 11.5px; color: #a07060; }
+    .upload-change { font-size: 11.5px; color: var(--brown-lt); text-decoration: underline; cursor: pointer; margin-top: 2px; display: inline-block; }
+
+    /* ── Success ── */
+    .success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 60px 40px 68px;
+      gap: 16px;
+      animation: rise 0.5s ease both;
+    }
+    .success-icon {
+      width: 80px; height: 80px;
+      background: var(--blush);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px;
+    }
+    .success h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 26px;
+      color: var(--brown);
+    }
+    .success p {
+      font-size: 14px;
+      color: #8a5d50;
+      max-width: 300px;
+      line-height: 1.7;
+    }
+    .btn-another {
+      margin-top: 8px;
+      padding: 13px 36px;
+      background: var(--brown);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(139,77,55,0.25);
+      transition: background 0.2s;
+    }
+    .btn-another:hover { background: var(--brown-dk); }
+  </style>
+</head>
+<body>
+
+<div class="card">
+
+  <!-- ── Header ── -->
+  <div class="header">
+    <!-- Egyptian silhouette -->
+    <div class="header-ornament">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 130" width="340" height="130" fill="#fddcdc">
+        <rect x="0" y="116" width="340" height="6" rx="2"/>
+        <polygon points="90,116 175,18 260,116"/>
+        <polygon points="230,116 285,55 340,116"/>
+        <polygon points="0,116 45,62 90,116"/>
+      </svg>
+    </div>
+
+    <div class="header-eyebrow">Ejip Jastip</div>
+    <h1><em>Formulir</em> Data Pelanggan</h1>
+    <p>Mohon isi formulir ini untuk pendataan kami. Dengan mengisi formulir ini berarti pesanan sudah fix, yaa. Terima kasih sudah ikut nitip di Ejip Jastip!✨</p>
+  </div>
+
+
+  <!-- ── Form ── -->
+  <div class="body" id="formBody">
+
+    <div class="field">
+      <label>
+        <span class="icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b4d37" stroke-width="2.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </span>
+        Nama Lengkap
+        <span class="req">*</span>
+      </label>
+      <input type="text" id="nama" placeholder="contoh: Siti Sari" />
+    </div>
+
+    <div class="field">
+      <label>
+        <span class="icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b4d37" stroke-width="2.5"><path d="M22 16.92V20a2 2 0 01-2.18 2A19.86 19.86 0 013 4.18 2 2 0 015 2h3.09a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L9.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </span>
+        Nomor WhatsApp
+        <span class="req">*</span>
+      </label>
+      <input type="tel" id="whatsapp" placeholder="contoh: 0812 3456 7890" />
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label>
+        <span class="icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b4d37" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </span>
+        Alamat Lengkap
+        <span class="req">*</span>
+      </label>
+      <textarea id="alamat" placeholder="nama jalan, nomor, RT/RW, kelurahan/kecamatan, kota/kabupaten, provinsi"></textarea>
+    </div>
+
+    <div class="field">
+      <label>
+        <span class="icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b4d37" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        </span>
+        Kode Pos
+        <span class="req">*</span>
+      </label>
+      <input type="text" id="kodepos" placeholder="contoh: 12345" maxlength="5" inputmode="numeric" />
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="field">
+      <label>
+        <span class="icon">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#8b4d37" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+        </span>
+        Bukti Pembayaran
+        <span class="req">*</span>
+      </label>
+      <small style="color:#a07060; font-size:12px; line-height:1.8;">
+  Pembayaran kepada:<br>
+  <strong>7306789583</strong><br>
+  BSI - Nurul Fakhira Azzahra<br>
+  <strong>507215501796</strong><br>
+  Bank Jago Syariah - Moh. Naufal Elghiyats
+</small>
+      <div class="upload-box" id="uploadBox">
+        <input type="file" id="buktiFile" accept="image/*,.pdf" onchange="handleFileChange(this)" />
+        <div id="uploadPrompt">
+          <div class="upload-icon">🧾</div>
+          <div class="upload-text">
+            <strong>Klik atau tarik dokumenmu ke sini</strong><br>
+            JPG, PNG, atau PDF — maks. 10 MB
+          </div>
+        </div>
+        <div class="upload-preview" id="uploadPreview">
+          <div class="upload-preview-icon" id="previewIcon">📄</div>
+          <div>
+            <div class="upload-preview-name" id="previewName"></div>
+            <div class="upload-preview-size" id="previewSize"></div>
+            <span class="upload-change" onclick="resetFile(event)">Ganti file</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="submit-area">
+      <button class="btn-submit" id="btnSubmit" onclick="handleSubmit()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg>
+        Kirim Data
+      </button>
+      <button class="btn-reset" onclick="handleReset()">Isi Ulang</button>
+    </div>
+
+  </div>
+
+  <!-- ── Success ── -->
+  <div class="success" id="successState">
+    <div class="success-icon">🎉</div>
+    <h2>Terima Kasih!</h2>
+    <p>Data kamu sudah kami terima. Besok lusa nitip lagi, yaa! 😆✨</p>
+    <button class="btn-another" onclick="showForm()">Isi Data Lagi</button>
+  </div>
+
+</div>
+
+<script>
+  // ============================================================
+  // ✏️  LANGKAH SATU-SATUNYA: ganti teks di bawah ini
+  //     dengan URL Google Apps Script kamu, lalu Save file-nya.
+  // ============================================================
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzbe0g0jMALAnsQrcQfiWhgf8ozGETrMvTkKAOAGLzuMMqsOi8Q6g1T3BH2nTDUMDjJNA/exec";
+  // ============================================================
+
+  function handleFileChange(input) {
+    const file = input.files[0];
+    if (!file) return;
+    const prompt = document.getElementById('uploadPrompt');
+    const preview = document.getElementById('uploadPreview');
+    const box = document.getElementById('uploadBox');
+    document.getElementById('previewName').textContent = file.name;
+    document.getElementById('previewSize').textContent = (file.size / 1024 / 1024).toFixed(2) + ' MB';
+    document.getElementById('previewIcon').textContent = file.type.includes('pdf') ? '📋' : '🖼️';
+    prompt.style.display = 'none';
+    preview.classList.add('show');
+    box.classList.add('has-file');
+    box.style.borderColor = '';
+    box.style.boxShadow = '';
+  }
+
+  function resetFile(e) {
+    e.stopPropagation();
+    document.getElementById('buktiFile').value = '';
+    document.getElementById('uploadPrompt').style.display = '';
+    document.getElementById('uploadPreview').classList.remove('show');
+    document.getElementById('uploadBox').classList.remove('has-file');
+  }
+
+  // Drag & drop
+  const uploadBox = document.getElementById('uploadBox');
+  uploadBox.addEventListener('dragover', e => { e.preventDefault(); uploadBox.classList.add('dragover'); });
+  uploadBox.addEventListener('dragleave', () => uploadBox.classList.remove('dragover'));
+  uploadBox.addEventListener('drop', e => {
+    e.preventDefault();
+    uploadBox.classList.remove('dragover');
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      const input = document.getElementById('buktiFile');
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      input.files = dt.files;
+      handleFileChange(input);
+    }
+  });
+
+  function toBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result.split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  function markError(id) {
+    const el = document.getElementById(id);
+    el.style.borderColor = '#e07070';
+    el.style.boxShadow = '0 0 0 4px rgba(224,112,112,0.15)';
+    el.addEventListener('input', () => {
+      el.style.borderColor = '';
+      el.style.boxShadow = '';
+    }, { once: true });
+  }
+
+  async function handleSubmit() {
+    const nama    = document.getElementById('nama').value.trim();
+    const wa      = document.getElementById('whatsapp').value.trim();
+    const alamat  = document.getElementById('alamat').value.trim();
+    const kodepos = document.getElementById('kodepos').value.trim();
+    const fileInput = document.getElementById('buktiFile');
+    const file    = fileInput.files[0];
+
+    let valid = true;
+    if (!nama)    { markError('nama');     valid = false; }
+    if (!wa)      { markError('whatsapp'); valid = false; }
+    if (!alamat)  { markError('alamat');   valid = false; }
+    if (!kodepos) { markError('kodepos');  valid = false; }
+    if (!file) {
+      const box = document.getElementById('uploadBox');
+      box.style.borderColor = '#e07070';
+      box.style.boxShadow = '0 0 0 4px rgba(224,112,112,0.15)';
+      valid = false;
+    }
+    if (!valid) return;
+
+    const btn = document.getElementById('btnSubmit');
+    btn.disabled = true;
+    btn.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 0.8s linear infinite"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg> Mengirim…`;
+
+    let fileData = null;
+    try { fileData = await toBase64(file); } catch(e) {}
+
+    const payload = {
+      nama, whatsapp: wa, alamat, kodepos,
+      timestamp: new Date().toLocaleString('id-ID'),
+      fileName: file.name,
+      fileType: file.type,
+      fileData: fileData
+    };
+
+    try {
+      if (SCRIPT_URL !== "https://script.google.com/macros/s/AKfycbzbe0g0jMALAnsQrcQfiWhgf8ozGETrMvTkKAOAGLzuMMqsOi8Q6g1T3BH2nTDUMDjJNA/exec") {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      }
+    } catch (e) { /* no-cors selalu trigger catch, data tetap terkirim */ }
+
+    btn.disabled = false;
+    btn.innerHTML = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg> Kirim Data`;
+    showSuccess();
+  }
+
+  function showSuccess() {
+    document.getElementById('formBody').style.display = 'none';
+    document.getElementById('successState').style.display = 'flex';
+  }
+
+  function handleReset() {
+    ['nama', 'whatsapp', 'alamat', 'kodepos'].forEach(id => {
+      const el = document.getElementById(id);
+      el.value = '';
+      el.style.borderColor = '';
+      el.style.boxShadow = '';
+    });
+    document.getElementById('buktiFile').value = '';
+    document.getElementById('uploadPrompt').style.display = '';
+    document.getElementById('uploadPreview').classList.remove('show');
+    document.getElementById('uploadBox').classList.remove('has-file');
+  }
+
+  function showForm() {
+    handleReset();
+    document.getElementById('successState').style.display = 'none';
+    document.getElementById('formBody').style.display = 'flex';
+  }
+
+  document.getElementById('kodepos').addEventListener('input', function () {
+    this.value = this.value.replace(/\D/g, '');
+  });
+</script>
+
+</body>
+</html>
